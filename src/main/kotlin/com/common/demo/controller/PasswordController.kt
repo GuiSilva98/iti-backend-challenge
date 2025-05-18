@@ -1,7 +1,7 @@
 package com.common.demo.controller
 
-import com.common.demo.usecase.ProcessPassword
-import org.springframework.http.HttpStatus.NOT_ACCEPTABLE
+import com.common.demo.service.ProcessPassword
+import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.OK
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,9 +20,13 @@ class PasswordController(
     @ResponseStatus(OK)
     fun validatePassword(@PathVariable password: String): ResponseEntity<Boolean> {
         val result = processPassword.process(password)
-        return if (!result) {
-            ResponseEntity(false, NOT_ACCEPTABLE)
-        } else
-            ResponseEntity(true, OK)
+        return buildResponseEntity(result)
     }
+
+    private fun buildResponseEntity(result: Boolean): ResponseEntity<Boolean> =
+        if (result) responseEntitySuccess() else responseEntityFail()
+
+    private fun responseEntitySuccess() = ResponseEntity(true, OK)
+
+    private fun responseEntityFail() = ResponseEntity(false, BAD_REQUEST)
 }
