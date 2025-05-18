@@ -1,5 +1,8 @@
 package com.common.demo.usecase
 
+import org.springframework.stereotype.Component
+
+@Component
 class StringValidation {
 
     companion object {
@@ -8,26 +11,26 @@ class StringValidation {
 
         private const val ALLOWED_SIZE = 9
 
-        fun checkString(string: String): Boolean =
+        fun validateString(string: String): Boolean =
             sizeIsAllowed(string) &&
-                    hasDigit(string) &&
+                    hasNumber(string) &&
                     hasLowerCase(string) &&
                     hasUpperCase(string) &&
-                    !hasNotBlankSpaces(string) && // TODO: Revisar a inversão aqui
-                    hasDuplicatedCharacter(string) &&
+                    hasNoBlankSpaces(string) &&
+                    hasNoDuplicatedCharacter(string) &&
                     hasSpecialCharacter(string)
 
-        fun hasDigit(string: String): Boolean = string.any { it.isDigit() }
+        fun hasNumber(string: String): Boolean = string.any { it.isDigit() }
 
         fun hasLowerCase(string: String): Boolean = string.any { it.isLowerCase() }
 
         fun hasUpperCase(string: String): Boolean = string.any { it.isUpperCase() }
 
-        fun hasNotBlankSpaces(string: String): Boolean = string.any { it.isWhitespace() }
+        fun hasNoBlankSpaces(string: String): Boolean = string.any { it.isWhitespace() }.not()
 
         fun sizeIsAllowed(string: String): Boolean = string.length >= ALLOWED_SIZE
 
-        fun hasDuplicatedCharacter(string: String): Boolean = string.length == string.toSet().size
+        fun hasNoDuplicatedCharacter(string: String): Boolean = string.length == string.toSet().size
 
         fun hasSpecialCharacter(string: String): Boolean = string.contains(SPECIAL_CHARACTERS.toRegex())
     }

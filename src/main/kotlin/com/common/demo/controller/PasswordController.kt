@@ -1,6 +1,6 @@
 package com.common.demo.controller
 
-import com.common.demo.service.ProcessPassword
+import com.common.demo.service.ValidatePassword
 import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.OK
 import org.springframework.http.ResponseEntity
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/validate/passwords")
 class PasswordController(
-    private val processPassword: ProcessPassword
+    private val validatePassword: ValidatePassword
 ) {
 
     @GetMapping("/{password}")
     @ResponseStatus(OK)
     fun validatePassword(@PathVariable password: String): ResponseEntity<Boolean> {
-        val result = processPassword.process(password)
+        val result = validatePassword.validate(password)
         return buildResponseEntity(result)
     }
 
