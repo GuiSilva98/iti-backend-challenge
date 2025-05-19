@@ -7,7 +7,7 @@ O desafio proposto consiste no desenvolvimento de uma API para validação de se
 O projeto adota uma arquitetura em camadas, composta por Controller, Service e Usecase, com responsabilidades bem definidas em cada nível.
 A camada de **Controller** é responsável por expor o endpoint da aplicação, receber a requisição e encaminhá-la para o serviço indicado, cuidando também da formatação das respostas.
 As regras de negócio estão centralizadas na camada de **Usecase**, facilitando a manutenção e a adição de novas funcionalidades.
-Já a camada de **Service** atua como intermediária, orquestrando as chamadas ao usecase e podendo agrupar ou estender comportamentos conforme necessário.
+Já a camada de **Service** atua como intermediária, organizando a chamada para o usecase e podendo agrupar ou estender comportamentos se necessário.
 
 ## Contexto
 
